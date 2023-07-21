@@ -1,9 +1,10 @@
+import { User } from "@database/schema/User";
+import connectToDB from "@utils/connectToDatabase";
+
 export async function GET(request: Request) {
-  const users = [
-    {
-      name: "hamida",
-      age: 23,
-    },
-  ];
-  return new Response(JSON.stringify(users));
+  await connectToDB();
+  const users = await User.find();
+  return new Response(JSON.stringify(users), {
+    status: 200,
+  });
 }
